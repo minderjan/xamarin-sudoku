@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="sudoku.MainPage"
+             Title="Sudoku">
+
+    <StackLayout Spacing="10" Orientation="Vertical">
+
+        <StackLayout Spacing="10" Orientation="Horizontal">
+            <Button Text="Reset" />
+        </StackLayout>
+
+        <CollectionView ItemsSource="{Binding GridFields}" IsGrouped="true">
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                    Span="9" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                        <Entry Grid.Column="1" Grid.Row="1" Keyboard="Numeric" Text="{Binding Value}"  />
+
+                   
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </StackLayout>
+
+</ContentPage>
