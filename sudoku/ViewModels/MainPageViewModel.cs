@@ -28,18 +28,17 @@ namespace sudoku.viewmodel
         {
             get
             {
-                return new Command(InitGrid);
+                _resetGridCommand = new Command(InitGrid);
+                return _resetGridCommand;
             }
         }
 
       
-        /**
-         * Constructor
-         */
         public MainPageViewModel(IGridService gridService)
         {
             _gridService = gridService;
             _gridFields = new ObservableCollection<Row>();
+
             InitSudoku();
         }
 

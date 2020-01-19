@@ -21,20 +21,12 @@ namespace sudoku.Models
             IsEditable = true;
         }
 
-        public Field(int x, int y, Boolean isLocked)
-        {
-            X = x;
-            Y = y;
-            Value = X + Y;
-            IsEditable = isLocked;
-        }
-
         public Field(int x, int y, int value)
         {
             X = x;
             Y = y;
             Value = value;
-            IsEditable = true;
+            IsEditable = false;
         }
     }
 }
