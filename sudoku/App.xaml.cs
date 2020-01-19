@@ -10,7 +10,8 @@ namespace sudoku
         public App()
         {
             InitializeComponent();
-            MainPage = new MainPage(new MainPageViewModel());
+            IGridService gridService = new GridService();
+            MainPage = new MainPage(new MainPageViewModel(gridService));
         }
 
         protected override void OnStart()

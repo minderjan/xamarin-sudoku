@@ -5,4 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" x:Class="sudoku.App">
 
+    <Application.Resources>
+        <StyleSheet Source="/Styles/MainPage.css" />
+    </Application.Resources>
+
 </Application>

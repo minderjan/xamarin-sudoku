@@ -7,27 +7,28 @@
     <StackLayout Spacing="10" Orientation="Vertical">
 
         <StackLayout Spacing="10" Orientation="Horizontal">
-            <Button Text="Reset" />
+            <Button Text="Reset" Command="{Binding ResetGridCommand}" />
         </StackLayout>
 
         <CollectionView ItemsSource="{Binding GridFields}" IsGrouped="true">
 
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"
-                                    Span="9" />
+                <GridItemsLayout Orientation="Vertical" Span="9" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
-
+           
                 <DataTemplate>
-
-                        <Entry Grid.Column="1" Grid.Row="1" Keyboard="Numeric" Text="{Binding Value}"  />
-
-                   
+                        <Entry Keyboard="Numeric"
+                               StyleClass="gridEntry"
+                               Text="{Binding Value}"
+                               HorizontalTextAlignment="Center"
+                               IsEnabled="{Binding IsEditable}" />
                 </DataTemplate>
+
             </CollectionView.ItemTemplate>
         </CollectionView>
-
+        
     </StackLayout>
 
 </ContentPage>

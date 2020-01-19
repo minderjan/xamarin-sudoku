@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace sudoku.Models
 {
-    public class RowGroup : List<Field>
+    public class Row : List<Field>
     {
 
         public Field Field1 { get; set; }
@@ -19,7 +19,7 @@ namespace sudoku.Models
 
 
 
-        public RowGroup(List<Field> fields) : base(fields)
+        public Row(List<Field> fields) : base(fields)
         {
             Field1 = new Field();
             Field2 = new Field();
@@ -30,7 +30,6 @@ namespace sudoku.Models
             Field7 = new Field();
             Field8 = new Field();
             Field9 = new Field();
-
         }
 
   
