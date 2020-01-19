@@ -1,3 +1,17 @@
-﻿.gridEntry {
-    background-color: lightgray;
+﻿.Content {
+    padding: 20;
+}
+
+.Grid {
+   margin-top: 20;
+}
+
+.cellEdit {
+    
+}
+
+.cellFrame {
+    border-width: .5;
+    border-color: #ccd7e8;
+    padding: 0;
 }

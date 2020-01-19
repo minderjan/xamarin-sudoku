@@ -1,34 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:sudoku;assembly=sudoku"
              x:Class="sudoku.MainPage"
              Title="Sudoku">
 
-    <StackLayout Spacing="10" Orientation="Vertical">
+     <ContentPage.Resources>
+        <StyleSheet Source="../Styles/MainPage.css" />
+    </ContentPage.Resources>
+
+    <StackLayout Spacing="10" Orientation="Vertical" StyleClass="Content">
 
         <StackLayout Spacing="10" Orientation="Horizontal">
-            <Button Text="Reset" Command="{Binding ResetGridCommand}" />
+            <Button Text="Reset" StyleClass="ActionButton" Command="{Binding ResetGridCommand}" />
         </StackLayout>
 
-        <CollectionView ItemsSource="{Binding GridFields}" IsGrouped="true">
+        <CollectionView ItemsSource="{Binding GridFields}" IsGrouped="true" StyleClass="Grid">
 
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="9" />
+                <GridItemsLayout
+                    Orientation="Vertical"
+                    Span="9" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
-           
                 <DataTemplate>
-                        <Entry Keyboard="Numeric"
-                               StyleClass="gridEntry"
-                               Text="{Binding Value}"
-                               HorizontalTextAlignment="Center"
-                               IsEnabled="{Binding IsEditable}" />
-                </DataTemplate>
 
+                    <Frame StyleClass="cellFrame" CornerRadius="0">
+                        <Entry Keyboard="Numeric"
+                                   StyleClass="cellEdit"
+                                   Text="{Binding Value}"
+                                   HorizontalTextAlignment="Center"
+                                   IsEnabled="{Binding IsEditable}" />
+                    </Frame>
+                </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        
+        <BoxView>
+
+        </BoxView>
     </StackLayout>
 
 </ContentPage>

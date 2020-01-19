@@ -14,8 +14,7 @@
     <Folder Include="Models\" />
     <Folder Include="Views\" />
     <Folder Include="Services\" />
+    <Folder Include="Controls\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="NLog.config" />
-  </ItemGroup>
+
 </Project>

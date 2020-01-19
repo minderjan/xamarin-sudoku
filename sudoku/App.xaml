@@ -6,7 +6,7 @@
              mc:Ignorable="d" x:Class="sudoku.App">
 
     <Application.Resources>
-        <StyleSheet Source="/Styles/MainPage.css" />
+        <StyleSheet Source="/Styles/App.css" />
     </Application.Resources>
 
 </Application>
