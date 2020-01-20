@@ -2,7 +2,6 @@
 using Android.Graphics.Drawables;
 using Android.Text;
 using CustomRenderer.Android;
-using sudoku;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -22,7 +21,7 @@ namespace CustomRenderer.Android
                 gd.SetColor(global::Android.Graphics.Color.Transparent);
                 this.Control.SetBackgroundDrawable(gd);
                 this.Control.SetRawInputType(InputTypes.ClassNumber);
-                Control.SetHintTextColor(ColorStateList.ValueOf(global::Android.Graphics.Color.White));
+                this.Control.SetHintTextColor(ColorStateList.ValueOf(global::Android.Graphics.Color.White));            
             }
         }
     }

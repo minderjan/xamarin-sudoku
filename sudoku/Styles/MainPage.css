@@ -3,15 +3,34 @@
 }
 
 .Grid {
-   margin-top: 20;
+    margin-top: 20;
 }
 
 .cellEdit {
-    
+}
+
+.cellEdit {
+    color: #1a51a3;
 }
 
 .cellFrame {
     border-width: .5;
     border-color: #ccd7e8;
+    border-radius: 0;
     padding: 0;
+}
+
+
+.eventsTitle {
+    font-style: Bold;
+    font-size: Medium;
+}
+
+.eventLogs {
+    font-size: Small;
+    color: #384a66;
+}
+
+.eventWindow {
+    
 }

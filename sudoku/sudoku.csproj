@@ -17,4 +17,7 @@
     <Folder Include="Controls\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controls\SudokuEntry.cs" />
+  </ItemGroup>
 </Project>

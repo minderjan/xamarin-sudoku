@@ -6,7 +6,8 @@ namespace sudoku
 {
     public interface IGridService
     {
-        List<Row> GenerateInitialGrid();
+        List<Field> GenerateInitialGrid();
+        int GetEmptyFieldsCount(IEnumerable<Field> fields);
     }
 
     public class GridService : IGridService
@@ -19,35 +20,44 @@ namespace sudoku
             InitPredefinedValues();
         }
 
-        public List<Row> GenerateInitialGrid()
+        public List<Field> GenerateInitialGrid()
         {
 
-            List<Row> _fields = new List<Row>();
+            List<Field> _fields = new List<Field>();
 
-            for (int i = 1; i < 10; i++)
+            for (int y = 1; y < 10; y++)
             {
-                _fields.Add(GenerateRow(i));
+                for (int x = 1; x < 10; x++)
+                {
+                    _fields.Add(GetFieldForCoordinates(x, y));
+                }
             }
 
             return _fields;
         }
 
-        private Row GenerateRow(int y)
+        public int GetEmptyFieldsCount(IEnumerable<Field> fields)
         {
-            System.Diagnostics.Debug.WriteLine("Generating Sudoku Rows");
 
-            List<Field> fields = new List<Field>();
+            Random random = new Random();
+            int emptyFields = 0;
 
-            for (int i = 1; i < 10; i++)
-            {
-                fields.Add(GetFieldForCoordinates(i, y));
-            }
+           
+                foreach (Field f in fields) {
 
+                    if (f.Value == 0) {
+                        emptyFields += 1;
+                    }
+                    
+                }
 
-            return new Row(fields);
+            return emptyFields + random.Next(14, 30);
         }
 
+
+
         private void InitPredefinedValues() {
+
             _predefinedFields = new List<Field>();
             _predefinedFields.Clear();
             _predefinedFields.Add(new Field(1, 2, 8));
@@ -112,5 +122,9 @@ namespace sudoku
             return new Field(x, y);
         }
 
+        public int GetEmptyFieldsCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

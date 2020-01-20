@@ -1,21 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:sudoku;assembly=sudoku"
              x:Class="sudoku.MainPage"
              Title="Sudoku">
 
-     <ContentPage.Resources>
+    <ContentPage.Resources>
         <StyleSheet Source="../Styles/MainPage.css" />
     </ContentPage.Resources>
 
     <StackLayout Spacing="10" Orientation="Vertical" StyleClass="Content">
 
-        <StackLayout Spacing="10" Orientation="Horizontal">
+        <StackLayout Spacing="10" Orientation="Horizontal" HorizontalOptions="Center">
             <Button Text="Reset" StyleClass="ActionButton" Command="{Binding ResetGridCommand}" />
+            <Button Text="Update Stats" StyleClass="ActionButton" Command="{Binding TriggerGridEventCommand}" />
         </StackLayout>
 
-        <CollectionView ItemsSource="{Binding GridFields}" IsGrouped="true" StyleClass="Grid">
+        <CollectionView ItemsSource="{Binding GridFields, Mode=TwoWay}"
+                        StyleClass="Grid"
+                        SelectionMode="None">
 
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
@@ -26,19 +28,32 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
 
-                    <Frame StyleClass="cellFrame" CornerRadius="0">
+                    <Frame StyleClass="cellFrame">
                         <Entry Keyboard="Numeric"
                                    StyleClass="cellEdit"
-                                   Text="{Binding Value}"
+                                   Text="{Binding Value, Mode=TwoWay}"
                                    HorizontalTextAlignment="Center"
                                    IsEnabled="{Binding IsEditable}" />
                     </Frame>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <BoxView>
 
-        </BoxView>
+        <Label Text="Events" StyleClass="eventsTitle" />
+
+        <Frame StyleClass="eventWindow" HasShadow="True">
+            <ScrollView HeightRequest="80">
+                <Label Text="{Binding DebugConsole}" />
+            </ScrollView>
+        </Frame>
+
+        <StackLayout Orientation="Horizontal">
+
+            <Label Text="Empty Fields:" />
+            <Label Text="{Binding EmptyFieldsCount}" StyleClass="eventLogs" />
+
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>
