@@ -10,11 +10,6 @@
 
     <StackLayout Spacing="10" Orientation="Vertical" StyleClass="Content">
 
-        <StackLayout Spacing="10" Orientation="Horizontal" HorizontalOptions="Center">
-            <Button Text="Reset" StyleClass="ActionButton" Command="{Binding ResetGridCommand}" />
-            <Button Text="Update Stats" StyleClass="ActionButton" Command="{Binding TriggerGridEventCommand}" />
-        </StackLayout>
-
         <CollectionView ItemsSource="{Binding GridFields, Mode=TwoWay}"
                         StyleClass="Grid"
                         SelectionMode="None">
@@ -45,7 +40,7 @@
         <Label Text="Events" StyleClass="eventsTitle" />
 
         <Frame StyleClass="eventWindow" HasShadow="True">
-            <ScrollView HeightRequest="50">
+            <ScrollView HeightRequest="60">
                 <Label Text="{Binding DebugConsole}" />
             </ScrollView>
         </Frame>
@@ -55,6 +50,10 @@
             <Label Text="Empty Fields:" />
             <Label Text="{Binding EmptyFieldsCount}" StyleClass="eventLogs" />
 
+        </StackLayout>
+
+          <StackLayout Spacing="10" Orientation="Horizontal" HorizontalOptions="End">
+            <Button Text="Reset" StyleClass="ActionButton" Command="{Binding ResetGridCommand}" />
         </StackLayout>
     </StackLayout>
 

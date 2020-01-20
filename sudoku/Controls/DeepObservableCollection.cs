@@ -82,6 +82,7 @@ namespace sudoku.Controls
         }
     }
 
+
     /// <summary>
     /// Provides data for the <see cref="FullyObservableCollection{T}.ItemPropertyChanged"/> event.
     /// </summary>

@@ -7,12 +7,16 @@ namespace sudoku.ViewModels
     {
 
         private int _x { get; set; }
-        public int X {
-            get {
+        public int X
+        {
+            get
+            {
                 return _x;
             }
-            set {
+            set
+            {
                 _x = value;
+                Notify(nameof(X));
             }
         }
 
@@ -26,6 +30,7 @@ namespace sudoku.ViewModels
             set
             {
                 _y = value;
+                Notify(nameof(Y));
             }
         }
 
@@ -51,21 +56,22 @@ namespace sudoku.ViewModels
 
             set
             {
-                try
-                {
-                    int result = Int32.Parse(value);
-                    Notify("GridFields");
-                    Notify("EmptyFieldsCount");
-                }
-                catch (FormatException)
-                {
-                    // Invalid Format will be ignored
-                }
+                _value = value;
+                Notify(nameof(Value));
+                Notify("DummyEvent");
             }
 
         }
 
-        public GridField() {}
+        public GridField() { }
+
+        public GridField(int x, int y, string value)
+        {
+            _x = x;
+            _y = y;
+            _value = value;
+            IsEditable = false;
+        }
 
         public GridField(Field field, Boolean isEditable)
         {
@@ -74,6 +80,6 @@ namespace sudoku.ViewModels
             _x = field.X;
             _y = field.Y;
         }
-       
+
     }
 }

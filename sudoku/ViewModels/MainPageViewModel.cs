@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
-using sudoku.Controls;
 using sudoku.Models;
 using sudoku.ViewModels;
 using Xamarin.Forms;
@@ -15,8 +13,10 @@ namespace sudoku.viewmodel
 
         private readonly IGridService _gridService;
 
-        private DeepObservableCollection<GridField> _gridFields;
-        public DeepObservableCollection<GridField> GridFields
+        private bool _isGridInitialized { get; set; }
+
+        private BindingList<GridField> _gridFields;
+        public BindingList<GridField> GridFields
         {
             get { return _gridFields; }
             set
@@ -24,18 +24,16 @@ namespace sudoku.viewmodel
                 _gridFields = value;
                 Notify(nameof(GridFields));
                 Notify(nameof(EmptyFieldsCount));
-
-                LogEvent("grid item has been changed");
-                
+                Log(LogType.Debug, "Grid has been changed");
             }
         }
 
+        private string _emptyFieldsCount { get; set; }
         public string EmptyFieldsCount
         {
             get
             {
-                LogEvent("Updated Statistics");
-                return GetStats().ToString();
+                return _emptyFieldsCount;
             }
         }
 
@@ -74,9 +72,10 @@ namespace sudoku.viewmodel
         public MainPageViewModel(IGridService gridService)
         {
             _gridService = gridService;
-            _gridFields = new DeepObservableCollection<GridField>();
+            _gridFields = new BindingList<GridField>();
 
-            
+            _gridFields.ListChanged += GridCollection_PropertyChanged;
+
             InitSudoku();
 
             // Register Event Handler for this Page
@@ -93,7 +92,9 @@ namespace sudoku.viewmodel
 
         private void InitGrid()
         {
-            LogEvent("Initalize Sudoku Grid");
+            _isGridInitialized = false;
+
+            Log(LogType.Debug, "Initalize Sudoku Grid");
             _gridFields.Clear();
 
             // initialize a new grid of fields (including predefined ones)
@@ -107,13 +108,20 @@ namespace sudoku.viewmodel
                 {
                     _gridFields.Add(new GridField(field, true));
                 }
-
             }
+
+            _isGridInitialized = true;
+
+            UpdateStats();
+
+            GridFields.ResetBindings();
+            Notify(nameof(GridFields));
         }
 
         private void UpdateStats()
         {
-            Notify(nameof(EmptyFieldsCount));
+            _emptyFieldsCount = GetStats().ToString();
+            Notify(nameof(EmptyFieldsCount)); 
         }
 
         private int GetStats()
@@ -145,9 +153,9 @@ namespace sudoku.viewmodel
             return fields;
         }
 
-        private void LogEvent(string message) {
+        private void Log(string type, string message) {
 
-            _debugConsole = message + "\n" + _debugConsole; 
+            _debugConsole = DateTime.Now.ToString("HH:mm:ss") + " [" + type + "] " + message + "\n" + _debugConsole; 
             Notify(nameof(DebugConsole));
 
         }
@@ -155,11 +163,36 @@ namespace sudoku.viewmodel
         void MainPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
 
-            if (!e.PropertyName.Equals(nameof(DebugConsole))) {
-                LogEvent("[Event] " + e.PropertyName);
+            if (!e.PropertyName.Equals(nameof(DebugConsole)))
+            {
+                Log(LogType.Event, e.PropertyName);
             }
             
         }
 
+        void GridCollection_PropertyChanged(object sender, ListChangedEventArgs e)
+        {
+
+            if (_isGridInitialized)
+            {
+                if (e.NewIndex > 0 && e.NewIndex <= _gridFields.Count) {
+                    GridField editedField = _gridFields[e.NewIndex];
+                    Log(LogType.Event, "x: " + editedField.X + " y: " + editedField.Y + " val: " + editedField.Value);
+                    UpdateStats();
+                }
+               
+            }
+
+        }
+
+    }
+
+    /// <summary>
+    /// Log Types used in Debug Console
+    /// </summary>
+    public static class LogType
+    {
+        public static string Event { get { return "Event"; } }
+        public static string Debug { get { return "Debug"; } }
     }
 }

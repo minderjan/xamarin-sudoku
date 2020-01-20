@@ -38,22 +38,17 @@ namespace sudoku
 
         public int GetEmptyFieldsCount(IEnumerable<Field> fields)
         {
-
-            Random random = new Random();
+           
             int emptyFields = 0;
-
            
                 foreach (Field f in fields) {
-
                     if (f.Value == 0) {
                         emptyFields += 1;
                     }
-                    
                 }
 
-            return emptyFields + random.Next(14, 30);
+            return emptyFields;
         }
-
 
 
         private void InitPredefinedValues() {
