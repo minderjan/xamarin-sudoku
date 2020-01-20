@@ -54,7 +54,8 @@ namespace sudoku.ViewModels
                 try
                 {
                     int result = Int32.Parse(value);
-                    //Notify("Value");
+                    Notify("GridFields");
+                    Notify("EmptyFieldsCount");
                 }
                 catch (FormatException)
                 {

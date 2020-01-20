@@ -33,7 +33,9 @@
                                    StyleClass="cellEdit"
                                    Text="{Binding Value, Mode=TwoWay}"
                                    HorizontalTextAlignment="Center"
-                                   IsEnabled="{Binding IsEditable}" />
+                                   IsEnabled="{Binding IsEditable}" >
+
+                        </Entry>
                     </Frame>
 
                 </DataTemplate>
@@ -43,7 +45,7 @@
         <Label Text="Events" StyleClass="eventsTitle" />
 
         <Frame StyleClass="eventWindow" HasShadow="True">
-            <ScrollView HeightRequest="80">
+            <ScrollView HeightRequest="50">
                 <Label Text="{Binding DebugConsole}" />
             </ScrollView>
         </Frame>

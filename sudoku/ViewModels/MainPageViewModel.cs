@@ -57,7 +57,7 @@ namespace sudoku.viewmodel
             {
                 _triggerGridEventCommand = new Command(UpdateStats);
                 return _triggerGridEventCommand;
-            }
+            } 
         }
 
         private ICommand _resetGridCommand;
@@ -76,7 +76,12 @@ namespace sudoku.viewmodel
             _gridService = gridService;
             _gridFields = new DeepObservableCollection<GridField>();
 
+            
             InitSudoku();
+
+            // Register Event Handler for this Page
+            RegisterPropertyChangedHandler(MainPage_PropertyChanged);
+
         }
 
         private void InitSudoku()
@@ -145,6 +150,15 @@ namespace sudoku.viewmodel
             _debugConsole = message + "\n" + _debugConsole; 
             Notify(nameof(DebugConsole));
 
+        }
+
+        void MainPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+
+            if (!e.PropertyName.Equals(nameof(DebugConsole))) {
+                LogEvent("[Event] " + e.PropertyName);
+            }
+            
         }
 
     }

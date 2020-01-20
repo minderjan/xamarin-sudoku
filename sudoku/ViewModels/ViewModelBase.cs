@@ -11,5 +11,10 @@ namespace sudoku
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        protected void RegisterPropertyChangedHandler(PropertyChangedEventHandler handler) {
+            this.PropertyChanged += handler;
+        }
+
     }
 }
