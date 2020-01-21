@@ -13,6 +13,8 @@ namespace sudoku.viewmodel
 
         private readonly IGridService _gridService;
 
+        // Variables -----------------------------------------
+
         private bool _isGridInitialized { get; set; }
 
         private BindingList<GridField> _gridFields;
@@ -47,6 +49,17 @@ namespace sudoku.viewmodel
             }
         }
 
+        // Commands ------------------------------------------
+
+        private ICommand _clearLogsCommand;
+        public ICommand ClearLogsCommand
+        {
+            get
+            {
+                _clearLogsCommand = new Command(ClearLogs);
+                return _clearLogsCommand;
+            }
+        }
 
         private ICommand _triggerGridEventCommand;
         public ICommand TriggerGridEventCommand
@@ -55,7 +68,7 @@ namespace sudoku.viewmodel
             {
                 _triggerGridEventCommand = new Command(UpdateStats);
                 return _triggerGridEventCommand;
-            } 
+            }
         }
 
         private ICommand _resetGridCommand;
@@ -63,18 +76,17 @@ namespace sudoku.viewmodel
         {
             get
             {
-                _resetGridCommand = new Command(InitGrid);
+                _resetGridCommand = new Command(InitSudoku);
                 return _resetGridCommand;
             }
         }
 
+        // Construction ----------------------------------------
+        
 
         public MainPageViewModel(IGridService gridService)
         {
             _gridService = gridService;
-            _gridFields = new BindingList<GridField>();
-
-            _gridFields.ListChanged += GridCollection_PropertyChanged;
 
             InitSudoku();
 
@@ -83,18 +95,33 @@ namespace sudoku.viewmodel
 
         }
 
+        // Initialization -------------------------------------
+
         private void InitSudoku()
         {
+           
             // Initialize a new Sudo Grid
             InitGrid();
+
+            // more inits ...
         }
 
 
         private void InitGrid()
         {
+
+            if (_gridFields != null) {
+                // Reset Bindings to unused lists
+                GridFields.ResetBindings();
+            }
+
+            _gridFields = new BindingList<GridField>();
+            _gridFields.ListChanged += GridCollection_PropertyChanged;
+
+
             _isGridInitialized = false;
 
-            Log(LogType.Debug, "Initalize Sudoku Grid");
+            Log(LogType.Info, "Initalize new sudoku grid");
             _gridFields.Clear();
 
             // initialize a new grid of fields (including predefined ones)
@@ -114,20 +141,24 @@ namespace sudoku.viewmodel
 
             UpdateStats();
 
-            GridFields.ResetBindings();
+            
             Notify(nameof(GridFields));
         }
+
+        // Calculation --------------------------------------
 
         private void UpdateStats()
         {
             _emptyFieldsCount = GetStats().ToString();
-            Notify(nameof(EmptyFieldsCount)); 
+            Notify(nameof(EmptyFieldsCount));
         }
 
         private int GetStats()
         {
             return _gridService.GetEmptyFieldsCount(ConvertViewListToModelList(_gridFields));
         }
+
+        // Utils --------------------------------------------
 
         private List<Field> ConvertViewListToModelList(IEnumerable<GridField> gridFields)
         {
@@ -153,21 +184,47 @@ namespace sudoku.viewmodel
             return fields;
         }
 
-        private void Log(string type, string message) {
+        private void Log(string type, string message)
+        {
 
-            _debugConsole = DateTime.Now.ToString("HH:mm:ss") + " [" + type + "] " + message + "\n" + _debugConsole; 
+            _debugConsole = DateTime.Now.ToString("HH:mm:ss") + " [" + type + "] " + message + "\n" + _debugConsole;
             Notify(nameof(DebugConsole));
 
         }
+
+        private void ClearLogs()
+        {
+
+            _debugConsole = "";
+            Notify(nameof(DebugConsole));
+
+        }
+
+
+        // Event Handler ---------------------------------------------
 
         void MainPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
 
             if (!e.PropertyName.Equals(nameof(DebugConsole)))
             {
-                Log(LogType.Event, e.PropertyName);
+
+                switch (e.PropertyName)
+                {
+                    case nameof(GridFields):
+                        Log(LogType.Event, "Grid has been changed");
+                        break;
+                    case nameof(EmptyFieldsCount):
+                        Log(LogType.Event, "Empty fields statistic changed");
+                        break;
+                    default:
+                        Log(LogType.Event, e.PropertyName + " has changed");
+                        break;
+                }
+
+
             }
-            
+
         }
 
         void GridCollection_PropertyChanged(object sender, ListChangedEventArgs e)
@@ -175,12 +232,13 @@ namespace sudoku.viewmodel
 
             if (_isGridInitialized)
             {
-                if (e.NewIndex > 0 && e.NewIndex <= _gridFields.Count) {
+                if (e.NewIndex > 0 && e.NewIndex <= _gridFields.Count)
+                {
                     GridField editedField = _gridFields[e.NewIndex];
-                    Log(LogType.Event, "x: " + editedField.X + " y: " + editedField.Y + " val: " + editedField.Value);
+                    Log(LogType.Event, "Field(x:" + editedField.X + "/y:" + editedField.Y + ") changed value to " + editedField.Value);
                     UpdateStats();
                 }
-               
+
             }
 
         }
@@ -194,5 +252,6 @@ namespace sudoku.viewmodel
     {
         public static string Event { get { return "Event"; } }
         public static string Debug { get { return "Debug"; } }
+        public static string Info { get { return "Info"; } }
     }
 }

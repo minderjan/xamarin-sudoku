@@ -2,4 +2,16 @@
     background-color: #1a51a3;
     border-radius: 2;
     color: white;
+    padding-left: 10;
+    padding-right: 10;
+    padding-top: 4;
+    padding-bottom: 4;
+}
+
+.DeleteButton {
+    background-color: #b24a50;
+    border-radius: 10;
+    padding: 3;
+    font-style: bold;
+    color: white;
 }

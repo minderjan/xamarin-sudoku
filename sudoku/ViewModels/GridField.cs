@@ -56,7 +56,28 @@ namespace sudoku.ViewModels
 
             set
             {
-                _value = value;
+                int val;
+
+                try
+                {
+                    val = Int32.Parse(value);
+                }
+                catch (Exception e)
+                {
+                    val = 0;
+                }
+
+                // validation
+                if (val > 0 && val <= 9)
+                {
+                    _value = value;
+                }
+                else
+                {
+                    _value = "0";
+                }
+
+
                 Notify(nameof(Value));
                 Notify("DummyEvent");
             }

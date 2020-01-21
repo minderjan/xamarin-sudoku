@@ -15,6 +15,7 @@
     <Folder Include="Views\" />
     <Folder Include="Services\" />
     <Folder Include="Controls\" />
+    <Folder Include="Behaviors\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="sudoku.MainPage"
+             xmlns:local="clr-namespace:sudoku.Behaviors"  
              Title="Sudoku">
 
     <ContentPage.Resources>
@@ -10,51 +11,88 @@
 
     <StackLayout Spacing="10" Orientation="Vertical" StyleClass="Content">
 
-        <CollectionView ItemsSource="{Binding GridFields, Mode=TwoWay}"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <CollectionView Grid.Row="0" ItemsSource="{Binding GridFields, Mode=TwoWay}"
                         StyleClass="Grid"
                         SelectionMode="None">
 
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout
-                    Orientation="Vertical"
-                    Span="9" />
-            </CollectionView.ItemsLayout>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="9" />
+                </CollectionView.ItemsLayout>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
 
-                    <Frame StyleClass="cellFrame">
-                        <Entry Keyboard="Numeric"
+                        <Frame StyleClass="cellFrame">
+                            <Entry Keyboard="Numeric"
                                    StyleClass="cellEdit"
                                    Text="{Binding Value, Mode=TwoWay}"
                                    HorizontalTextAlignment="Center"
                                    IsEnabled="{Binding IsEditable}" >
+                                <Entry.Behaviors>
+                                    <local:NumberValidationBehavior />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </Frame>
 
-                        </Entry>
-                    </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <StackLayout Grid.Row="1">
 
-        <Label Text="Events" StyleClass="eventsTitle" />
+                <Grid HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
 
-        <Frame StyleClass="eventWindow" HasShadow="True">
-            <ScrollView HeightRequest="60">
-                <Label Text="{Binding DebugConsole}" />
-            </ScrollView>
-        </Frame>
+                    <Label Grid.Column="0" Text="Events" StyleClass="eventsTitle" />
 
-        <StackLayout Orientation="Horizontal">
+                    <Button Grid.Column="1" StyleClass="DeleteButton" Text="x" Command="{Binding ClearLogsCommand}" />
+                </Grid>
 
-            <Label Text="Empty Fields:" />
-            <Label Text="{Binding EmptyFieldsCount}" StyleClass="eventLogs" />
+                <Frame StyleClass="eventWindow" HasShadow="False">
+                    <ScrollView HeightRequest="90">
+                        <Label Text="{Binding DebugConsole}" />
+                    </ScrollView>
+                </Frame>
+            </StackLayout>
 
-        </StackLayout>
+            <Grid Grid.Row="2">
 
-          <StackLayout Spacing="10" Orientation="Horizontal" HorizontalOptions="End">
-            <Button Text="Reset" StyleClass="ActionButton" Command="{Binding ResetGridCommand}" />
-        </StackLayout>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalOptions="Start">
+                    <Label Text="Empty Fields:" />
+                    <Label Text="{Binding EmptyFieldsCount}" StyleClass="eventLogs" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Grid.Column="2" Grid.Row="1" HorizontalOptions="End" VerticalOptions="End">
+                    <Button Text="Reset" StyleClass="ActionButton" Command="{Binding ResetGridCommand}" />
+                </StackLayout>
+
+            </Grid>
+
+        </Grid>
+
     </StackLayout>
 
 </ContentPage>
