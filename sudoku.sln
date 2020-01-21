@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sudoku", "sudoku\sudoku.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F86E04C9-C1DA-4E91-983F-FC00451BF6B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sudoku.Test", "sudoku.Test\sudoku.Test.csproj", "{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,5 +57,17 @@ Global
 		{3FBE5B54-4BDF-4E38-9A7E-F5AE0BDA6F74}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{3FBE5B54-4BDF-4E38-9A7E-F5AE0BDA6F74}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{3FBE5B54-4BDF-4E38-9A7E-F5AE0BDA6F74}.Release|iPhone.Build.0 = Release|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{C020EE30-F7B1-4E17-B673-E8B2FC6E8827}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
