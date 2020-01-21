@@ -11,19 +11,19 @@
 
     <StackLayout Spacing="10" Orientation="Vertical" StyleClass="Content">
 
-        <Grid VerticalOptions="Center">
+        <Grid>
 
             <Grid.Margin>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS" Value="0,80,0,0" />
-                    <On Platform="Android, WinPhone, Windows" Value="0,20,0,0" />
+                    <On Platform="Android" Value="0,15,0,0" />
                 </OnPlatform>
             </Grid.Margin>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="6*" />
+                <RowDefinition Height="6.3*" />
                 <RowDefinition Height="2*"  />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height=".7*" />
             </Grid.RowDefinitions>
 
             <CollectionView Grid.Row="0"
@@ -90,12 +90,12 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalOptions="Start">
+                <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center">
                     <Label Text="Empty Fields:" />
                     <Label Text="{Binding EmptyFieldsCount}" StyleClass="eventLogs" />
                 </StackLayout>
 
-                <StackLayout Orientation="Horizontal" Grid.Column="2" Grid.Row="1" HorizontalOptions="End" VerticalOptions="End">
+                <StackLayout Orientation="Horizontal" Grid.Column="2" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center">
                     <Button Text="Reset" StyleClass="ActionButton" Command="{Binding ResetGridCommand}" />
                 </StackLayout>
 
