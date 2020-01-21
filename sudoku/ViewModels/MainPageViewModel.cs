@@ -186,7 +186,9 @@ namespace sudoku.viewmodel
 
         private void Log(string type, string message)
         {
-
+            if (_debugConsole == null) {
+                _debugConsole = "";
+            }
             _debugConsole = DateTime.Now.ToString("HH:mm:ss") + " [" + type + "] " + message + "\n" + _debugConsole;
             Notify(nameof(DebugConsole));
 

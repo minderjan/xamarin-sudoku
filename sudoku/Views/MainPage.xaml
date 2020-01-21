@@ -11,16 +11,26 @@
 
     <StackLayout Spacing="10" Orientation="Vertical" StyleClass="Content">
 
-        <Grid>
+        <Grid VerticalOptions="Center">
+
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,80,0,0" />
+                    <On Platform="Android, WinPhone, Windows" Value="0,20,0,0" />
+                </OnPlatform>
+            </Grid.Margin>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="6*" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*"  />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
-            <CollectionView Grid.Row="0" ItemsSource="{Binding GridFields, Mode=TwoWay}"
-                        StyleClass="Grid"
-                        SelectionMode="None">
+            <CollectionView Grid.Row="0"
+                            ItemsSource="{Binding GridFields, Mode=TwoWay}"
+                            VerticalOptions="Center"
+                            StyleClass="Grid"
+                            SelectionMode="None">
 
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="9" />
