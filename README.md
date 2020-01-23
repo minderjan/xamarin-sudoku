@@ -13,5 +13,5 @@ __Android__
 
 __iOS__
 
-* iPhone 11 (iOS 1.32)
+* iPhone 11 (iOS 13.2)
 * iPad Pro (iOS 13.2)

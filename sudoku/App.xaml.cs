@@ -1,7 +1,7 @@
 ﻿using System;
-using sudoku.viewmodel;
+using sudoku.Services;
+using sudoku.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace sudoku
 {

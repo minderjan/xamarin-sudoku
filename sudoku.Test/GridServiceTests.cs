@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using sudoku.Models;
+using sudoku.Services;
 
 namespace sudoku.Test
 {

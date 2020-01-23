@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 using sudoku.Models;
-using sudoku.ViewModels;
+using sudoku.Services;
 using Xamarin.Forms;
 
-namespace sudoku.viewmodel
+namespace sudoku.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
@@ -82,7 +82,7 @@ namespace sudoku.viewmodel
         }
 
         // Construction ----------------------------------------
-        
+
 
         public MainPageViewModel(IGridService gridService)
         {
@@ -99,7 +99,7 @@ namespace sudoku.viewmodel
 
         private void InitSudoku()
         {
-           
+
             // Initialize a new Sudo Grid
             InitGrid();
 
@@ -110,7 +110,8 @@ namespace sudoku.viewmodel
         private void InitGrid()
         {
 
-            if (_gridFields != null) {
+            if (_gridFields != null)
+            {
                 // Reset Bindings to unused lists
                 GridFields.ResetBindings();
             }
@@ -137,12 +138,11 @@ namespace sudoku.viewmodel
                 }
             }
 
-            _isGridInitialized = true;
-
             UpdateStats();
 
-            
             Notify(nameof(GridFields));
+
+            _isGridInitialized = true;
         }
 
         // Calculation --------------------------------------
@@ -186,9 +186,16 @@ namespace sudoku.viewmodel
 
         private void Log(string type, string message)
         {
-            if (_debugConsole == null) {
+            if (_debugConsole == null)
+            {
                 _debugConsole = "";
             }
+
+            // prevent debugger from overflow
+            if (_debugConsole.Length > 1000) {
+                _debugConsole = _debugConsole.Substring(0, 1000);
+            }
+
             _debugConsole = DateTime.Now.ToString("HH:mm:ss") + " [" + type + "] " + message + "\n" + _debugConsole;
             Notify(nameof(DebugConsole));
 
@@ -224,7 +231,6 @@ namespace sudoku.viewmodel
                         break;
                 }
 
-
             }
 
         }
@@ -235,7 +241,7 @@ namespace sudoku.viewmodel
             if (_isGridInitialized)
             {
                 if (e.NewIndex > 0 && e.NewIndex <= _gridFields.Count)
-                {
+                { 
                     GridField editedField = _gridFields[e.NewIndex];
                     Log(LogType.Event, "Field(x:" + editedField.X + "/y:" + editedField.Y + ") changed value to " + editedField.Value);
                     UpdateStats();

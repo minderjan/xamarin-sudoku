@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace sudoku
+namespace sudoku.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

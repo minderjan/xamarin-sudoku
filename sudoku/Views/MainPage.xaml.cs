@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using sudoku.viewmodel;
+using sudoku.ViewModels;
 using Xamarin.Forms;
 
 namespace sudoku

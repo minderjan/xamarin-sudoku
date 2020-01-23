@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using sudoku.Models;
 
-namespace sudoku
+namespace sudoku.Services
 {
     public interface IGridService
     {
@@ -29,7 +30,7 @@ namespace sudoku
             {
                 for (int x = 1; x < 10; x++)
                 {
-                    _fields.Add(GetFieldForCoordinates(x, y));
+                    _fields.Add(GetInitialFieldByCoordinates(x, y));
                 }
             }
 
@@ -38,20 +39,33 @@ namespace sudoku
 
         public int GetEmptyFieldsCount(IEnumerable<Field> fields)
         {
-           
-            int emptyFields = 0;
-           
-                foreach (Field f in fields) {
-                    if (f.Value == 0) {
-                        emptyFields += 1;
-                    }
-                }
-
-            return emptyFields;
+            return fields.Count(f => f.Value == 0);
         }
 
+        // Private Methods ------------------------------------
 
-        private void InitPredefinedValues() {
+
+        private Field GetInitialFieldByCoordinates(int x, int y) {
+
+            Field field = null;
+
+            field = _predefinedFields.SingleOrDefault(f => f.X == x && f.Y == y);
+
+            if (field != null)
+            {
+                return field;
+            }
+
+            return new Field(x, y);
+        }
+
+        public int GetEmptyFieldsCount()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void InitPredefinedValues()
+        {
 
             _predefinedFields = new List<Field>();
             _predefinedFields.Clear();
@@ -105,21 +119,5 @@ namespace sudoku
             _predefinedFields.Add(new Field(9, 9, 8));
         }
 
-        private Field GetFieldForCoordinates(int x, int y) {
-
-            // Check for predefines values for this coordinates
-            foreach (Field f in _predefinedFields) {
-                if (f.X == x && f.Y == y) {
-                    return f;
-                }
-            }
-
-            return new Field(x, y);
-        }
-
-        public int GetEmptyFieldsCount()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
