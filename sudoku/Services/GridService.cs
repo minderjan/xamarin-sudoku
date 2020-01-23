@@ -59,11 +59,6 @@ namespace sudoku.Services
             return new Field(x, y);
         }
 
-        public int GetEmptyFieldsCount()
-        {
-            throw new NotImplementedException();
-        }
-
         private void InitPredefinedValues()
         {
 
